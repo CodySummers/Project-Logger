@@ -2,7 +2,7 @@
 //launch invisible first and have that load the panel
 
 var csInterface = new CSInterface();
-var userSettingsPath = csInterface.getSystemPath(SystemPath.USER_DATA) + "/ProjectLogger"; 
+var userSettingsPath = csInterface.getSystemPath(SystemPath.USER_DATA) + "/ProjectLogger";
 var userSettingsFileName = "/userSettings.json";
 var projectName;
 var projectPath;
@@ -31,25 +31,25 @@ var secondsLabel = document.getElementById("seconds");
 var startStopButton = document.getElementById("startStop");
 var mainBodyID = document.getElementById("mainBody");
 
-mainBodyID.style.background = "rgb("+ bkColour + "," + bkColour + "," + bkColour +")";
+mainBodyID.style.background = "rgb(" + bkColour + "," + bkColour + "," + bkColour + ")";
 
 //If window or AE closes write to file. 
-window.addEventListener("beforeunload", function(){
-    if(running == true){
+window.addEventListener("beforeunload", function () {
+    if (running == true) {
         //window.cep.fs.writeFile("C:/1.txt", "Hello");
         stopButton();
     }
 });
 
-function loadUserSettings(){
+function loadUserSettings() {
     var userSettingsFile = window.cep.fs.readFile(userSettingsPath + userSettingsFileName);
-    if(userSettingsFile.err == 0){
+    if (userSettingsFile.err == 0) {
         userSettings = JSON.parse(userSettingsFile.data);
-        document.getElementById("timer").style.display = (userSettings.showTimer == true)? 'inline' : 'none';
-    }else makeUserSettings();
+        document.getElementById("timer").style.display = (userSettings.showTimer == true) ? 'inline' : 'none';
+    } else makeUserSettings();
 }
 
-function makeUserSettings(){
+function makeUserSettings() {
     userSettings = {
         filePath: "Please pick a folder.",
         fileName: "ProjectLog",
@@ -66,42 +66,42 @@ function makeUserSettings(){
     window.cep.fs.writeFile(userSettingsPath + userSettingsFileName, userSettingsSave);
 }
 
-function mainOnload(){
+function mainOnload() {
     loadUserSettings()
-    if(userSettings.firstLaunch == true){
+    if (userSettings.firstLaunch == true) {
         settingsWindow();
     }
-    if(userSettings.startOnLaunch == true){
+    if (userSettings.startOnLaunch == true) {
         startButton();
     };
 }
 
-function settingsWindow(){
+function settingsWindow() {
     csInterface.requestOpenExtension("com.project.logger.settings.panel");
 }
 
-csInterface.addEventListener("settingsApply", function (event){
+csInterface.addEventListener("settingsApply", function (event) {
     loadUserSettings();
 });
 
-function projectLogStart(){
-    totalSeconds = 0;    
+function projectLogStart() {
+    totalSeconds = 0;
     dateDDMMYY = dateFormat();
     getProjectName();
     startTime = new Date().toLocaleTimeString();
-    setTimeout(function(){
+    setTimeout(function () {
         oldProjectName = projectName.slice(0);
         oldProjectPath = projectPath.slice(0);
     }, 1000);
-    projectChange = setInterval(function(){compareProjectName()}, projectChangeTimer);
+    projectChange = setInterval(function () { compareProjectName() }, projectChangeTimer);
 }
 
-function dateFormat(){
+function dateFormat() {
     var dd = new Date().getDate();
-    var mm = (new Date().getMonth()+1);
+    var mm = (new Date().getMonth() + 1);
     var yy = new Date().getFullYear();
 
-    switch(userSettings.dateFormat) {
+    switch (userSettings.dateFormat) {
         case "ddmmyy":
             return dd + "/" + mm + "/" + yy;
         case "mmddyy":
@@ -111,40 +111,40 @@ function dateFormat(){
     }
 }
 
-function compareProjectName(){
+function compareProjectName() {
     getProjectName();
-    if(oldProjectName != projectName){
+    if (oldProjectName != projectName) {
         clearInterval(projectChange);
-        writeToFile(oldProjectName,oldProjectPath);
+        writeToFile(oldProjectName, oldProjectPath);
         projectLogStart();
     }
 }
 
-function writeToFile(projectNameToRecord, projectPathToRecord){
-    if(userSettings.saveAll == true){
+function writeToFile(projectNameToRecord, projectPathToRecord) {
+    if (userSettings.saveAll == true) {
         fileExists(userSettings.filePath + userSettings.fileName, projectNameToRecord);
     }
-    if(userSettings.saveIndividual == true && userSettings.saveLocal == false && projectNameToRecord != "Untitled Project"){
+    if (userSettings.saveIndividual == true && userSettings.saveLocal == false && projectNameToRecord != "Untitled Project") {
         fileExists(userSettings.filePath + projectNameToRecord + "-" + userSettings.fileName, projectNameToRecord);
     }
-    if(userSettings.saveIndividual == true && userSettings.saveLocal == true && projectNameToRecord != "Untitled Project"){
-        fileExists(projectPathToRecord + projectNameToRecord  + " - " + userSettings.fileName, projectNameToRecord)
+    if (userSettings.saveIndividual == true && userSettings.saveLocal == true && projectNameToRecord != "Untitled Project") {
+        fileExists(projectPathToRecord + projectNameToRecord + " - " + userSettings.fileName, projectNameToRecord)
     }
 }
 
-function fileExists(fileInfo, projectNameToRecord){
+function fileExists(fileInfo, projectNameToRecord) {
     projectLog = window.cep.fs.readFile(fileInfo + ".csv");
     var endTime = new Date().toLocaleTimeString();
-    var dataToWrite = projectLog.data + dateDDMMYY + "," + appName + "," + projectNameToRecord + "," + startTime + "," + endTime + "," + (totalSeconds/60).toFixed(2) + "\r";
-    if(projectLog.err != 0){
+    var dataToWrite = projectLog.data + dateDDMMYY + "," + appName + "," + projectNameToRecord + "," + startTime + "," + endTime + "," + (totalSeconds / 60).toFixed(2) + "\r";
+    if (projectLog.err != 0) {
         dataToWrite = "Date,Program,Project Name,Start time,End Time,Elapsed Time\r" + dataToWrite;
-        
+
     }
     window.cep.fs.writeFile(fileInfo + ".csv", dataToWrite);
 }
 
-function getProjectName(){
-    csInterface.evalScript('getProjectName("'+ appName +'")', function(msg){
+function getProjectName() {
+    csInterface.evalScript('getProjectName("' + appName + '")', function (msg) {
         //alert(JSON.stringify(msg))
         projectName = msg.split(",")[0];
         projectPath = msg.split(",")[1];
@@ -152,22 +152,22 @@ function getProjectName(){
     });
 }
 
-function startStop(){
-    if(running == false){
+function startStop() {
+    if (running == false) {
         startButton();
-    }else{
+    } else {
         stopButton();
-    } 
+    }
 }
 
-function startButton(){
+function startButton() {
     projectLogStart();
     startStopButton.innerHTML = "Stop";
     running = true;
     timer = setInterval(setTime, 1000);
 }
 
-function stopButton(){
+function stopButton() {
     startStopButton.innerHTML = "Start";
     running = false;
     clearInterval(projectChange);
@@ -177,23 +177,23 @@ function stopButton(){
 
 //Timer
 function setTime() {
-  ++totalSeconds;
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
+    ++totalSeconds;
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+    secondsLabel.innerHTML = pad(totalSeconds % 60);
 }
 
 function pad(val) {
     var valString = val + "";
     if (valString.length < 2) {
-      return "0" + valString;
+        return "0" + valString;
     } else {
-      return valString;
+        return valString;
     }
-  }
+}
 
-  function getFullAppName(){
-    switch(csInterface.hostEnvironment.appName){
-        
+function getFullAppName() {
+    switch (csInterface.hostEnvironment.appName) {
+
         case "PHSP":
         case "PHXS":
             return "Photoshop";
@@ -224,14 +224,14 @@ function pad(val) {
     }
 }
 
-/*  
+/*
 //Helper function for promises
 function runEvalScript(script) {
     return new Promise(function(resolve, reject){
         csInterface.evalScript(script, resolve);
     });
 }
- 
+
 //How to write promises
 
 function writeToFile(){
@@ -244,7 +244,7 @@ runEvalScript('writeToFile()')
 
 /*
 function saveFile(){
-    var oldFile = window.cep.fs.readFile("C:\\Users\\Grego\\Desktop\\ProjectLog-ExtensionText.csv"); 
+    var oldFile = window.cep.fs.readFile("C:\\Users\\Grego\\Desktop\\ProjectLog-ExtensionText.csv");
     window.cep.fs.writeFile("G:\\Test.csv", oldFile.data + "this is a test");
 }
 */

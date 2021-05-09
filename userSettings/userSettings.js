@@ -1,6 +1,6 @@
 //Load Settings
 var csInterface = new CSInterface();
-var userSettingsPath = csInterface.getSystemPath(SystemPath.USER_DATA) + "/ProjectLogger"; 
+var userSettingsPath = csInterface.getSystemPath(SystemPath.USER_DATA) + "/ProjectLogger";
 var userSettingsFileName = "/userSettings.json";
 csInterface.setWindowTitle("Project Logger Settings")
 var userSettingsFile = window.cep.fs.readFile(userSettingsPath + userSettingsFileName);
@@ -21,7 +21,7 @@ var saveIndividualID = document.getElementById("saveIndividual");
 var mainBodyID = document.getElementById("mainBody");
 
 //Display User Settings
-mainBody.style.background = "rgb("+ bkColour + "," + bkColour + "," + bkColour +")";
+mainBody.style.background = "rgb(" + bkColour + "," + bkColour + "," + bkColour + ")";
 startOnLaunchID.checked = userSettings.startOnLaunch;
 showTimerID.checked = userSettings.showTimer;
 saveAllID.checked = userSettings.saveAll;
@@ -32,25 +32,25 @@ saveIndividualID.checked = userSettings.saveIndividual;
 saveIndividualCheckbox();
 
 //Runs on start and if checkbox changed
-function saveIndividualCheckbox(){
-    if(saveIndividualID.checked == false){
+function saveIndividualCheckbox() {
+    if (saveIndividualID.checked == false) {
         saveLocalCheckboxID.disabled = true;
         saveLocalID.classList.add("greyOut");
         saveLocalCheckboxID.checked = false;
-    }else{
+    } else {
         saveLocalCheckboxID.checked = userSettings.saveLocal;
         saveLocalCheckboxID.disabled = false;
         saveLocalID.classList.remove("greyOut");
     }
 }
 
-function pickSaveFolder(){
+function pickSaveFolder() {
     var saveFolder = window.cep.fs.showOpenDialog(false, true, "Save Location", null);
     pickSaveFolderID.innerHTML = saveFolder.data[0] + "/";
     userSettings.filePath = saveFolder.data[0] + "/";
 }
 
-function apply(){
+function apply() {
     userSettings.firstLaunch = false;
     userSettings.fileName = fileNameID.value.replace(/[\<>:"|?*\/.\\]/g, "");
     userSettings.dateFormat = dateFormatID.value;

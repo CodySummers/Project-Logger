@@ -1,43 +1,46 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="css/styles.css"/>
-		<title>Project Logger</title>
-		<!--No right click-->
-		<script>
-			var isNS = (navigator.appName == "Netscape") ? 1 : 0;
 
-			if(navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN||Event.MOUSEUP);
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/styles.css" />
+	<title>Project Logger</title>
+	<!--No right click-->
+	<script>
+		var isNS = (navigator.appName == "Netscape") ? 1 : 0;
 
-			function mischandler(){
-				return false;
-			}
-			function mousehandler(e){
-				var myevent = (isNS) ? e : event;
-				var eventbutton = (isNS) ? myevent.which : myevent.button;
-				if((eventbutton==2)||(eventbutton==3)) return false;
-			}
-			document.oncontextmenu = mischandler;
-			document.onmousedown = mousehandler;
-			document.onmouseup = mousehandler;
-		</script>
-		<!--No right click-->
+		if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
 
-	</head>
-	<body scroll="no" onload="mainOnload()" id="mainBody" ></body>
-		<div>
-			<div id="timer"><span id="minutes">00</span>:<span id="seconds">00</span><br></div>
-			<button type="button" onclick="startStop()" id="startStop">Start</button><br>
-			<button type="button" onclick="settingsWindow()" id="settingsWindow">Settings</button>
-			<div id="test"></div>
-		</div>
-		<script>
+		function mischandler() {
+			return false;
+		}
+		function mousehandler(e) {
+			var myevent = (isNS) ? e : event;
+			var eventbutton = (isNS) ? myevent.which : myevent.button;
+			if ((eventbutton == 2) || (eventbutton == 3)) return false;
+		}
+		document.oncontextmenu = mischandler;
+		document.onmousedown = mousehandler;
+		document.onmouseup = mousehandler;
+	</script>
+	<!--No right click-->
 
-			//JS Goes here
+</head>
 
-		</script>	
-		<script src="js/libs/CSInterface.js"></script>
-		<script src="js/main.js"></script>
-	</body>
+<body scroll="no" onload="mainOnload()" id="mainBody"></body>
+<div>
+	<div id="timer"><span id="minutes">00</span>:<span id="seconds">00</span><br></div>
+	<button type="button" onclick="startStop()" id="startStop">Start</button><br>
+	<button type="button" onclick="settingsWindow()" id="settingsWindow">Settings</button>
+	<div id="test"></div>
+</div>
+<script>
+
+				//JS Goes here
+
+</script>
+<script src="js/libs/CSInterface.js"></script>
+<script src="js/main.js"></script>
+</body>
+
 </html>

@@ -1,35 +1,35 @@
-﻿function getProjectName(appName){
+﻿function getProjectName(appName) {
     var projectName = [];
-      
-    switch(appName) {
+
+    switch (appName) {
         case "After Effects":
-            try{
+            try {
                 projectName[0] = app.project.file.displayName.split(".")[0];
                 projectName[1] = app.project.file.fsName;
-            } 
-            catch(err){
+            }
+            catch (err) {
                 projectName[0] = "Untitled Project";
                 projectName[1] = "No project open";
             }
             return projectName;
 
         case "Premiere Pro":
-            try{
+            try {
                 projectName[0] = app.project.name.split(".")[0];
                 projectName[1] = app.project.path;
-            } 
-            catch(err){
+            }
+            catch (err) {
                 projectName[0] = "Untitled Project";
                 projectName[1] = "No project open";
             }
             return projectName;
-        
+
         default: //Photoshop, Illustrator, InDesign
-            try{
+            try {
                 projectName[0] = app.activeDocument.fullName.displayName.split(".")[0];
                 projectName[1] = app.activeDocument.fullName.fsName;
-            } 
-            catch(err){
+            }
+            catch (err) {
                 projectName[0] = "Untitled Project";
                 projectName[1] = "No project open";
             }
