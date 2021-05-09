@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/styles.css"/>
+		<title>Project Logger Settings</title>
+		<!--No right click-->		
+		<script>
+			var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+
+			if(navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN||Event.MOUSEUP);
+
+			function mischandler(){
+				return false;
+			}
+			function mousehandler(e){
+				var myevent = (isNS) ? e : event;
+				var eventbutton = (isNS) ? myevent.which : myevent.button;
+				if((eventbutton==2)||(eventbutton==3)) return false;
+			}
+			document.oncontextmenu = mischandler;
+			document.onmousedown = mousehandler;
+			document.onmouseup = mousehandler;
+		</script>
+		<!--No right click-->
+
+	</head>
+	<body scroll="no" onload="onLoad()" onbeforeunload="windowClose()" id="mainBody">
+		<div>
+			<span id="settingsPanel">Project Logger Settings</span><br>
+			<div class="options">
+				<button type="button" onclick="pickSaveFolder()" id="pickFolder">Save Location</button>
+				<span id="pickSaveFolder">Pick a folder to save your project log in</span><br>
+
+				<form>
+					<label for="fileName">Filename:</label>
+					<input type="text" id="fileName" name="fileName" maxlength="50" value="Project Logger"><br>
+				</form> 
+				
+				<form>
+					<label for="startOnLaunch">Start on launch:</label>
+					<input type="checkbox" id="startOnLaunch" name="startOnLaunch" value="startOnLaunch"><br>
+					<label for="saveAll">Save logs in one file:</label>
+					<input type="checkbox" id="saveAll" name="saveAll" value="saveAll"><br>
+					<label for="saveIndividual">Save individual logs:</label>
+					<input type="checkbox" id="saveIndividual" name="saveIndividual" value="saveIndividual" onclick="saveIndividualCheckbox()">
+					<label for="saveLocal" id="saveLocal" >Save next to project file:</label>
+					<input type="checkbox" id="saveLocalCheckbox" name="saveLocal" value="saveLocal"><br>
+					<label for="showTimer">Show timer:</label>
+					<input type="checkbox" id="showTimer" name="showTimer" value="showTimer"><br>
+				<form>
+
+					<label for="dateFormat">Date Format:</label>
+					<select id="dateFormat" name="dateFormat">
+					  <option value="ddmmyy">DD/MM/YY</option>
+					  <option value="mmddyy">MM/DD/YY</option>
+					  <option value="yymmdd">YY/MM/DD</option>
+					</select>
+				</form>
+						
+				
+			</div>
+			<div id="info"><br><b>Known issues:</b><br>
+				<b>All</b>  - Recommend to press stop before closing<br> the application, as it doesn't always log your work.<br>
+				<b>Photoshop</b> - If extension is minimised<br> it will stop recording.
+			</div>
+			<div id="applySave">
+				<span id="saved">Saved!</span>
+				<button type="button" onclick="apply()" id="apply">Apply</button><br>
+			</div>
+			<span id="test"></span>
+            
+		</div>
+		<script>
+
+		function getOS() {
+			var userAgent = window.navigator.userAgent,
+			platform = window.navigator.platform,
+			macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+			windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+			os = null;
+
+			if(macosPlatforms.indexOf(platform) != -1) {
+				os = "MAC";
+			} else if(windowsPlatforms.indexOf(platform) != -1) {
+				os = "WIN";
+			}
+				return os;
+			}
+			
+		</script>	
+		<script src="js/libs/CSInterface.js"></script>
+		<script src="userSettings/userSettings.js"></script>
+	</body>
+</html>

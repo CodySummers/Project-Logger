@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest
+	Version="4.0"
+	ExtensionBundleId="com.project.logger"
+	ExtensionBundleVersion="1.0.0"
+	ExtensionBundleName="Project Logger"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ExtensionList>
+		<Extension Id="com.project.logger.panel" Version="1.0" />
+		<Extension Id="com.project.logger.settings.panel" Version="1.0" />
+	</ExtensionList>
+
+	<ExecutionEnvironment>
+		<HostList>
+			<Host Version="13.0" Name="AEFT"/><!---->After effects<!---->
+
+			<Host Version="15.0" Name="DRWV"/><!---->Dreamweaver<!---->
+
+			<Host Version="15.0" Name="FLPR"/><!---->Animate<!---->
+
+			<Host Version="11.0" Name="IDSN"/> <!---->InDesign<!---->
+
+			<Host Version="11.0" Name="AICY"/><!---->InCopy<!---->
+
+			<Host Version="[15.0,99.9]" Name="ILST"/> <!---->Illustrator<!---->
+
+			<Host Version="16.0" Name="PHSP"/><!---->Photoshop<!---->
+
+			<Host Version="[16.0,99.9]" Name="PHXS"/> <!---->Photoshop<!---->
+
+			<Host Version="9.0" Name="PPRO"/>  <!---->Premiere Pro<!---->
+
+			<Host Version="4.0" Name="PRLD"/><!---->Prelude<!---->
+
+			<Host Version="8.0" Name="AUDT"/><!---->Audition<!---->
+
+			<Host Version="7.0" Name="LTRM"/><!---->Lightroom?<!---->
+
+			<Host Version="2015" Name="MUSE"/><!---->Mush<!---->
+		</HostList>
+
+	<LocaleList>
+		<Locale Code="All" />
+	</LocaleList>
+
+	<RequiredRuntimeList>
+		<RequiredRuntime Name="CSXS" Version="7.0" />
+	</RequiredRuntimeList>
+</ExecutionEnvironment>
+
+	<DispatchInfoList>
+		<Extension Id="com.project.logger.panel">
+			<DispatchInfo>
+
+			<Resources>
+				<MainPath>./index.html</MainPath>
+				<ScriptPath>./jsx/getProjectName.jsx</ScriptPath>
+				<CEFCommandLine>
+					<Parameter>--enable-nodejs</Parameter>
+				</CEFCommandLine>
+			</Resources>
+
+			<Lifecycle>
+				<AutoVisible>true</AutoVisible>
+			</Lifecycle>
+
+			<UI>
+
+				<Type>Panel</Type>
+				<Menu>Project Logger</Menu>
+
+				<Geometry>
+					<Size>
+							<Height>125</Height>
+							<Width>150</Width>
+					</Size>
+				</Geometry>
+
+			</UI>
+		</DispatchInfo>
+	</Extension>
+
+<Extension Id="com.project.logger.settings.panel">
+			<DispatchInfo>
+
+			<Resources>
+				<MainPath>./userSettingsIndex.html</MainPath>
+			</Resources>
+
+			<Lifecycle>
+				<AutoVisible>true</AutoVisible>
+			</Lifecycle>
+
+			<UI>
+
+				<Type>ModalDialog</Type>
+				
+				<Geometry>
+					<Size>
+							<Height>425</Height>
+							<Width>400</Width>
+					</Size>
+				</Geometry>
+
+			</UI>
+		</DispatchInfo>
+	</Extension>
+
+</DispatchInfoList>
+</ExtensionManifest>

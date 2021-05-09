@@ -1,0 +1,57 @@
+body {
+	background-color: black;
+	color: white;
+	text-align: center;
+	}
+
+#settingsPanel{
+	text-align: center;
+}
+
+  button {
+	  margin: 5px;
+  }
+
+.options {
+	margin-top: 1em;
+	text-align: left;
+	line-height: 2em;
+}
+
+#saved {
+ 	color: green;
+ 	opacity: 0;
+}
+
+.fadeOut {
+	animation: fadeOut 2s linear 1s both;
+}
+
+@keyframes fadeOut {
+	0% {
+	  opacity: 1;
+	}
+	100% {
+	  opacity: 0;
+	}
+  }
+
+  #applySave {
+	   position: fixed;
+	   bottom: 0;
+	   right: 0;
+	   margin: 25px;
+  }
+
+  #pickSaveFolder{
+	  opacity: 0.3;
+  }
+
+  .greyOut{
+	opacity: 0.1;
+  }
+
+  #info{
+	opacity: 0.5;
+	text-align: left;
+  }
